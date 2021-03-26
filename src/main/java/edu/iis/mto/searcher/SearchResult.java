@@ -27,7 +27,8 @@ public class SearchResult {
         private boolean found;
         private int position;
 
-        private Builder() {}
+        public Builder() {
+        }
 
         public Builder withFound(boolean found) {
             this.found = found;
