@@ -140,5 +140,23 @@ class SimilarityFinderTest {
         assertEquals(counter[0], 7);
     }
 
+    @Test
+    public void shouldReturnOneAfterInvokingOneTime() {
+
+        final int[] counter = {0};
+
+        SimilarityFinder similarityFinder =
+                new SimilarityFinder(
+                        (elem, sequence) -> {
+                            counter[0] = counter[0] + 1;
+                            return SearchResult.builder().withFound(true).withPosition(0).build();
+                        });
+
+        int[] seq1 = {1};
+        int[] seq2 = {1};
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        assertEquals(counter[0], 1);
+    }
+
 
 }
