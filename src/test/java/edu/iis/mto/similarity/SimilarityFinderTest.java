@@ -46,4 +46,12 @@ class SimilarityFinderTest {
         assertEquals(0.5, similarityFinder.calculateJackardSimilarity(seq1, seq2));
     }
 
+    @Test
+    void firstSequenceEmptyAndSecondNot(){
+        int[] seq1 = {};
+        int[] seq2 = {9,8,7};
+
+        assertEquals(0, similarityFinder.calculateJackardSimilarity(seq1, seq2));
+    }
+
 }
