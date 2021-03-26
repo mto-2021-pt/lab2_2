@@ -62,4 +62,12 @@ class SimilarityFinderTest {
         double res=sf.calculateJackardSimilarity(seq1,seq2);
         assertEquals(0.25,res);
     }
+
+    @Test
+    void Unuccessful_SequencesTooShort(){
+        SimilarityFinder sf=new SimilarityFinder(new DoublerSequenceSearcher());
+        int[] seq1={};
+        int[] seq2={};
+        assertThrows(IllegalArgumentException.class,()->sf.calculateJackardSimilarity(seq1,seq2));
+    }
 }

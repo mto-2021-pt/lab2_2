@@ -12,7 +12,7 @@ public class SimilarityFinder {
 
     public double calculateJackardSimilarity(int[] seq1, int[] seq2) {
         if (seq1.length == 0 && seq2.length == 0) {
-            return 1.0d;
+            throw new IllegalArgumentException();
         }
 
         int intersectSize = calculateIntersect(seq1, seq2);
