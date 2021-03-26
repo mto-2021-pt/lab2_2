@@ -20,6 +20,20 @@ class SimilarityFinderTest {
     }
 
     @Test
+    public void shouldReturnOneWhenNumbersAreTheSame() {
+
+        int[] seq1 = {1, 2, 3};
+        int[] seq2 = {1, 2, 3};
+
+        SimilarityFinder similarityFinder = new SimilarityFinder((elem, sequence) -> SearchResult.builder()
+                .withFound(true).build());
+
+        double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        assertEquals(1, similarity);
+    }
+
+
+    @Test
     public void shouldReturnZeroWhenSequencesContainDifferentNumbers() {
 
         int[] seq1 = {1, 2, 3, 4, 5, 6};
