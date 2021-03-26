@@ -19,7 +19,6 @@ class SimilarityFinderTest {
         }
     };
 
-
     @Test
     void test1() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
@@ -27,5 +26,22 @@ class SimilarityFinderTest {
         double result = similarityFinder.calculateJackardSimilarity(new int[]{3},new int[]{3});
         assertEquals(1,result);
     }
+
+    SequenceSearcher sequenceSearcherFalse = new SequenceSearcher() {
+        @Override
+        public SearchResult search(int elem, int[] sequence) {
+            SearchResult.Builder builder = SearchResult.builder();
+            builder.withFound(false);
+            return builder.build();
+        }
+    };
+    @Test
+    void test2() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherFalse);
+
+        double result = similarityFinder.calculateJackardSimilarity(new int[]{3},new int[]{4});
+        assertEquals(0,result);
+    }
+
 
 }
