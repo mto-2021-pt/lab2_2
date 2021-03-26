@@ -8,22 +8,24 @@ import org.junit.jupiter.api.Test;
 
 class SimilarityFinderTest {
 
-    SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcher() {
-        @Override
-        public SearchResult search(int elem, int[] sequence) {
-            for(int i=0;i<sequence.length;i++)
-            {
-                if(sequence[i]==elem)
-                {
-                    return SearchResult.builder().withFound(true).withPosition(i).build();
-                }
-            }
-            return SearchResult.builder().withFound(false).build();
-        }
-    });
+
 
     @Test
     public void twoEmptySequence() {
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcher() {
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                for(int i=0;i<sequence.length;i++)
+                {
+                    if(sequence[i]==elem)
+                    {
+                        return SearchResult.builder().withFound(true).withPosition(i).build();
+                    }
+                }
+                return SearchResult.builder().withFound(false).build();
+            }
+        });
 
         int [] seq1={};
         int [] seq2={};
@@ -34,6 +36,21 @@ class SimilarityFinderTest {
     @Test
     public void twoEqualsSequence()
     {
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcher() {
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                for(int i=0;i<sequence.length;i++)
+                {
+                    if(sequence[i]==elem)
+                    {
+                        return SearchResult.builder().withFound(true).withPosition(i).build();
+                    }
+                }
+                return SearchResult.builder().withFound(false).build();
+            }
+        });
+
         int [] seq1={1,2,3,4};
         int [] seq2={1,2,3,4};
 
@@ -43,6 +60,20 @@ class SimilarityFinderTest {
     @Test
     public void twoDifferentSequence()
     {
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcher() {
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                for(int i=0;i<sequence.length;i++)
+                {
+                    if(sequence[i]==elem)
+                    {
+                        return SearchResult.builder().withFound(true).withPosition(i).build();
+                    }
+                }
+                return SearchResult.builder().withFound(false).build();
+            }
+        });
+
         int [] seq1={1,2,3,4};
         int [] seq2={9,2,8,4};
 
@@ -52,6 +83,20 @@ class SimilarityFinderTest {
     @Test
     public void oneEmptySequence()
     {
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcher() {
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                for(int i=0;i<sequence.length;i++)
+                {
+                    if(sequence[i]==elem)
+                    {
+                        return SearchResult.builder().withFound(true).withPosition(i).build();
+                    }
+                }
+                return SearchResult.builder().withFound(false).build();
+            }
+        });
+
         int [] seq1={1,2,3,4};
         int [] seq2={};
 
@@ -61,6 +106,20 @@ class SimilarityFinderTest {
     @Test
     public void twoHalfEqualsSequence()
     {
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcher() {
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                for(int i=0;i<sequence.length;i++)
+                {
+                    if(sequence[i]==elem)
+                    {
+                        return SearchResult.builder().withFound(true).withPosition(i).build();
+                    }
+                }
+                return SearchResult.builder().withFound(false).build();
+            }
+        });
+
         int [] seq1={1,2,3,4};
         int [] seq2={1,3};
 
