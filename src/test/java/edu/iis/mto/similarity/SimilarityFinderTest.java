@@ -12,7 +12,7 @@ class SimilarityFinderTest {
     Search mock;
     int[] emptySequence = new int[]{};
     int[] sequence = new int[]{1,3,7,12};
-    int[] sequence2 = new int[]{241,399,2217,9898};
+    int[] sequence2 = new int[]{241,399,2217,9898,12211221};
     int[] sequence3 = new int[]{1,6,7,12};
 
     @BeforeEach
@@ -75,6 +75,20 @@ class SimilarityFinderTest {
     @Test
     void howManyTimesSearchCalledTest(){
         sf.calculateJackardSimilarity(sequence,sequence);
+        assertTrue(mock.getCalls()==sequence.length);
+
+    }
+
+    @Test
+    void howManyTimesSearchCalledForTwoDifferentSequencesWhenFirstIsLongerTest(){
+        sf.calculateJackardSimilarity(sequence2,sequence);
+        assertTrue(mock.getCalls()==sequence2.length);
+
+    }
+
+    @Test
+    void howManyTimesSearchCalledForTwoDifferentSequencesWhenSecondIsLongerTest(){
+        sf.calculateJackardSimilarity(sequence,sequence2);
         assertTrue(mock.getCalls()==sequence.length);
 
     }
