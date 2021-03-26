@@ -14,7 +14,7 @@ class SimilarityFinderTest {
     private double delta = 1e-6;
 
     @Test
-    void test1() {
+    void state_test_1() {
         int[] arr1 = {1, 2, 3, 4};
         int[] arr2 = {2, 3, 4, 5};
 
@@ -33,7 +33,7 @@ class SimilarityFinderTest {
 
 
     @Test
-    void test2() {
+    void state_test_2() {
         int[] arr = {};
 
         SearchResult[] search_results = {};
@@ -47,7 +47,7 @@ class SimilarityFinderTest {
 
 
     @Test
-    void test3() {
+    void state_test_3() {
         int[] arr1 = {1, 3, 9, 18};
         int[] arr2 = {3, 9, 100, 200, 300, 1000};
 
