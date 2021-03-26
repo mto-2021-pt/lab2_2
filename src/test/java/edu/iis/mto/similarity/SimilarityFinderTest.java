@@ -126,5 +126,30 @@ class SimilarityFinderTest {
         assertEquals(0.5,similarityFinder.calculateJackardSimilarity(seq1,seq2));
     }
 
+    @Test
+    public void zeroTimesMethod() throws NoSuchFieldException,IllegalAccessException
+    {
+        SequenceSearcher searcher = new SequenceSearcher() {
+            int counter=0;
+
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                counter++;
+                return null;
+            }
+        };
+        int [] seq1={};
+        int [] seq2={};
+
+        SimilarityFinder similarityFinder= new SimilarityFinder(searcher);
+
+        similarityFinder.calculateJackardSimilarity(seq1,seq2);
+
+        assertEquals(0,searcher.getClass().getDeclaredField("counter").getInt(searcher));
+    }
+
+
+
+
 
 }
