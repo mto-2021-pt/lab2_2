@@ -31,4 +31,11 @@ class SimilarityFinderTest {
         assertEquals(1, similarityFinder.calculateJackardSimilarity(seq1, seq1));
     }
 
+    @Test
+    void testingArraysWithDifferentElements(){
+        int[] seq1 = {10,20,30};
+        int[] seq2 = {40,50,60};
+        assertEquals(0, similarityFinder.calculateJackardSimilarity(seq1, seq2));
+    }
+
 }
