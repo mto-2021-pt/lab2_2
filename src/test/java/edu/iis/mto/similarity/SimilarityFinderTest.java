@@ -53,5 +53,13 @@ class SimilarityFinderTest {
 
     }
 
+    @Test
+    void Successful_ResultBetweenZeroAndOne(){
+        SimilarityFinder sf=new SimilarityFinder(new DoublerSequenceSearcher());
+        int[] seq1={58,1024,36,48,89};
+        int[] seq2={59,1024,37,48,90};
 
+        double res=sf.calculateJackardSimilarity(seq1,seq2);
+        assertEquals(0.25,res);
+    }
 }
