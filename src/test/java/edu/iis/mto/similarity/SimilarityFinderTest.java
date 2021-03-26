@@ -148,6 +148,28 @@ class SimilarityFinderTest {
         assertEquals(0,searcher.getClass().getDeclaredField("counter").getInt(searcher));
     }
 
+    @Test
+    public void sixTimesMethod() throws NoSuchFieldException,IllegalAccessException
+    {
+        SequenceSearcher searcher = new SequenceSearcher() {
+            int counter=0;
+
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                counter++;
+                return SearchResult.builder().withFound(true).build();
+            }
+        };
+        int [] seq1={1,2,3,4,5,6};
+        int [] seq2={1,2,3,4};
+
+        SimilarityFinder similarityFinder= new SimilarityFinder(searcher);
+
+        similarityFinder.calculateJackardSimilarity(seq1,seq2);
+
+        assertEquals(6,searcher.getClass().getDeclaredField("counter").getInt(searcher));
+    }
+
 
 
 
