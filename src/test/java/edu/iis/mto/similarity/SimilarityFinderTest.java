@@ -70,4 +70,28 @@ class SimilarityFinderTest {
         int[] seq2={};
         assertThrows(IllegalArgumentException.class,()->sf.calculateJackardSimilarity(seq1,seq2));
     }
+
+    @Test
+    void Unuccessful_FirstSequenceIsNull(){
+        SimilarityFinder sf=new SimilarityFinder(new DoublerSequenceSearcher());
+        int[] seq1=null;
+        int[] seq2={59,1024,37,48,90};
+        assertThrows(NullPointerException.class,()->sf.calculateJackardSimilarity(seq1,seq2));
+    }
+
+    @Test
+    void Unuccessful_SecondSequenceIsNull(){
+        SimilarityFinder sf=new SimilarityFinder(new DoublerSequenceSearcher());
+        int[] seq1={59,1024,37,48,90};
+        int[] seq2=null;
+        assertThrows(NullPointerException.class,()->sf.calculateJackardSimilarity(seq1,seq2));
+    }
+
+    @Test
+    void Unuccessful_BothSequencesAreNull(){
+        SimilarityFinder sf=new SimilarityFinder(new DoublerSequenceSearcher());
+        int[] seq1=null;
+        int[] seq2=null;
+        assertThrows(NullPointerException.class,()->sf.calculateJackardSimilarity(seq1,seq2));
+    }
 }
