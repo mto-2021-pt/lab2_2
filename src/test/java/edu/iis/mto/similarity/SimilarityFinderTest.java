@@ -74,4 +74,14 @@ class SimilarityFinderTest {
         assertEquals(5, sequenceSearcher.getClass().getDeclaredField("counter").getInt(sequenceSearcher));
     }
 
+    @Test
+    public void testingForNoneInvokes() throws NoSuchFieldException,IllegalAccessException {
+        int [] seq1={};
+        int [] seq2 = {2,4,6,8};
+
+        SimilarityFinder similarityFinder= new SimilarityFinder(sequenceSearcher);
+        similarityFinder.calculateJackardSimilarity(seq1,seq2);
+        assertEquals(0, sequenceSearcher.getClass().getDeclaredField("counter").getInt(sequenceSearcher));
+    }
+
 }
