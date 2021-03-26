@@ -58,5 +58,14 @@ class SimilarityFinderTest {
         assertEquals(0,similarityFinder.calculateJackardSimilarity(seq1,seq2));
     }
 
+    @Test
+    public void twoHalfEqualsSequence()
+    {
+        int [] seq1={1,2,3,4};
+        int [] seq2={1,3};
+
+        assertEquals(0.5,similarityFinder.calculateJackardSimilarity(seq1,seq2));
+    }
+
 
 }
