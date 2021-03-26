@@ -6,6 +6,8 @@ import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,6 +74,75 @@ class SimilarityFinderTest {
 
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2)==0.25, Is.is(true));
 
+    }
+
+    @Test
+    public void testForZeroInvokes() throws NoSuchFieldException,IllegalAccessException
+    {
+        int [] seq1={};
+        int [] seq2={};
+        int expected_res=0;
+
+        SequenceSearcher sequenceSearcher = new SequenceSearcher() {
+            private int count=0;
+
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                count++;
+                return SearchResult.builder().withFound(true).build();
+            }
+        };
+
+        SimilarityFinder similarityFinder= new SimilarityFinder(sequenceSearcher);
+        similarityFinder.calculateJackardSimilarity(seq1,seq2);
+
+        assertThat(sequenceSearcher.getClass().getDeclaredField("count").getInt(sequenceSearcher),Is.is(expected_res));
+    }
+
+    @Test
+    public void testForOneInvoke() throws NoSuchFieldException,IllegalAccessException
+    {
+        int [] seq1={3};
+        int [] seq2={1,2,3,4};
+        int expected_res=1;
+
+        SequenceSearcher sequenceSearcher = new SequenceSearcher() {
+            private int count=0;
+
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                count++;
+                return SearchResult.builder().withFound(true).build();
+            }
+        };
+
+        SimilarityFinder similarityFinder= new SimilarityFinder(sequenceSearcher);
+        similarityFinder.calculateJackardSimilarity(seq1,seq2);
+
+        assertThat(sequenceSearcher.getClass().getDeclaredField("count").getInt(sequenceSearcher),Is.is(expected_res));
+    }
+
+    @Test
+    public void testForFourInvokes() throws NoSuchFieldException,IllegalAccessException
+    {
+        int [] seq1={1,2,3,4};
+        int [] seq2={1,2,3,4};
+        int expected_res=4;
+
+        SequenceSearcher sequenceSearcher = new SequenceSearcher() {
+            private int count=0;
+
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                count++;
+                return SearchResult.builder().withFound(true).build();
+            }
+        };
+
+        SimilarityFinder similarityFinder= new SimilarityFinder(sequenceSearcher);
+        similarityFinder.calculateJackardSimilarity(seq1,seq2);
+
+        assertThat(sequenceSearcher.getClass().getDeclaredField("count").getInt(sequenceSearcher),Is.is(expected_res));
     }
 
 }
