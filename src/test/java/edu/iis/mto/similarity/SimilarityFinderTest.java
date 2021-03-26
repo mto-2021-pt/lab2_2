@@ -19,7 +19,7 @@ class SimilarityFinderTest {
     };
 
     @Test
-    void test1() {
+    void testTheSameArrays() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{3},new int[]{3});
@@ -35,7 +35,7 @@ class SimilarityFinderTest {
         }
     };
     @Test
-    void test2() {
+    void testDifferentArrays() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherFalse);
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{3},new int[]{4});
@@ -43,14 +43,14 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test3() {
+    void testOneIsEmpty() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherFalse);
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{3},new int[]{});
         assertEquals(0,result);
     }
     @Test
-    void test4() {
+    void testAllEmpty() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{},new int[]{});
@@ -58,7 +58,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test5() {
+    void testAllEmptyMultiple() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
 
         for(int i=0; i<5; i++){
@@ -67,13 +67,24 @@ class SimilarityFinderTest {
         }
 
     }
+
     @Test
-    void test6() {
+    void testDifferentMultiple() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherFalse);
 
         for(int i=0; i<5; i++){
             double result = similarityFinder.calculateJackardSimilarity(new int[]{5,3},new int[]{1,2});
             assertEquals(0,result);
+        }
+
+    }
+    @Test
+    void testTheSameMultiple() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
+
+        for(int i=0; i<5; i++){
+            double result = similarityFinder.calculateJackardSimilarity(new int[]{1,2},new int[]{1,2});
+            assertEquals(1,result);
         }
 
     }
@@ -90,7 +101,7 @@ class SimilarityFinderTest {
     };
 
     @Test
-    void test7() {
+    void testDifferentCounter() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrueCounter);
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{1,2,3,4},new int[]{6,7,8,9});
@@ -98,13 +109,12 @@ class SimilarityFinderTest {
 
     }
     @Test
-    void test8() {
+    void testEmptyCounter() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrueCounter);
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{},new int[]{});
         assertEquals(0,counter);
 
     }
-
 
 }
