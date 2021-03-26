@@ -1,11 +1,12 @@
 package edu.iis.mto.similarity;
 
 import edu.iis.mto.searcher.SearchResult;
+import edu.iis.mto.searcher.SequenceSearcher;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BehaviourTestSearcher{
+public class BehaviourTestSearcher implements SequenceSearcher {
     private SearchResult[] search_results;
     private int current_result = 0;
 

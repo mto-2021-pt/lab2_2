@@ -5,8 +5,8 @@ import edu.iis.mto.searcher.SequenceSearcher;
 
 public class StateTestSearcher implements SequenceSearcher {
 
-    private SearchResult[] search_results;
-    private int current_result = 0;
+    protected SearchResult[] search_results;
+    protected int current_result = 0;
 
     public StateTestSearcher(SearchResult[] search_results){
         this.search_results = search_results;
