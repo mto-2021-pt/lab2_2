@@ -1,6 +1,8 @@
 package edu.iis.mto.similarity;
 
 import edu.iis.mto.searcher.SearchResult;
+import edu.iis.mto.searcher.SequenceSearcher;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -118,6 +120,24 @@ class SimilarityFinderTest {
 
         double similarity = similarityFinder.calculateJackardSimilarity(seq2, seq1);
         assertEquals(0, similarity);
+    }
+
+    @Test
+    public void shouldReturnSevenAfterInvokingSevenTimes() {
+
+        final int[] counter = {0};
+
+        SimilarityFinder similarityFinder =
+                new SimilarityFinder(
+                        (elem, sequence) -> {
+                            counter[0] = counter[0] + 1;
+                            return SearchResult.builder().withFound(true).withPosition(0).build();
+                        });
+
+        int[] seq1 = {1, 2, 3, 4, 5, 6, 7};
+        int[] seq2 = {1, 2, 3, 4, 5, 6, 7};
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        assertEquals(counter[0], 7);
     }
 
 
