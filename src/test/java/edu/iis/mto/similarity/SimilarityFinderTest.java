@@ -50,5 +50,13 @@ class SimilarityFinderTest {
         double result = similarityFinder.calculateJackardSimilarity(new int[]{3},new int[]{});
         assertEquals(0,result);
     }
+    @Test
+    void test4() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
+
+        double result = similarityFinder.calculateJackardSimilarity(new int[]{},new int[]{});
+        assertEquals(1,result);
+    }
+
 
 }
