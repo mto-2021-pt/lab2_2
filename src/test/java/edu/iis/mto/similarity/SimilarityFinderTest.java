@@ -94,5 +94,32 @@ class SimilarityFinderTest {
         Assertions.assertEquals(1 / 3.0, result);
     }
 
+    @Test
+    void testWithDifferentSequencesOfDifferentLengths() {
+        SimilarityFinder similarityFinder = new SimilarityFinder((elem, sequence) -> {
+            SearchResult searchResult = null;
+            if (elem == 13) {
+                searchResult = SearchResult.builder().withPosition(0).withFound(false)
+                        .build();
+            } else if (elem == 21) {
+                searchResult = SearchResult.builder().withPosition(1).withFound(false)
+                        .build();
+            } else if (elem == 65) {
+                searchResult = SearchResult.builder().withPosition(2).withFound(true)
+                        .build();
+            } else if (elem == 12) {
+                searchResult = SearchResult.builder().withPosition(2).withFound(false)
+                        .build();
+            } else if (elem == 99) {
+                searchResult = SearchResult.builder().withPosition(2).withFound(false)
+                        .build();
+            }
+            return searchResult;
+        });
 
+        int[] firstTab = {13, 21, 65, 12, 99};
+        int[] secondTab = {7, 65, 98};
+        double result = similarityFinder.calculateJackardSimilarity(firstTab, secondTab);
+        Assertions.assertEquals(1 / 7.0, result);
+    }
 }
