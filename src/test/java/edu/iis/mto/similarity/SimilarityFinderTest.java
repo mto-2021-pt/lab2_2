@@ -12,16 +12,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimilarityFinderTest {
-    SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcher() {
-        @Override
-        public SearchResult search(int elem, int[] sequence) {
-            for(int i = 0; i<sequence.length; i++){
-                if(sequence[i] == elem){
-                    return SearchResult.builder().withFound(true).withPosition(i).build();
-                }
+    SimilarityFinder similarityFinder = new SimilarityFinder((elem, sequence) -> {
+        for(int i = 0; i<sequence.length; i++){
+            if(sequence[i] == elem){
+                return SearchResult.builder().withFound(true).withPosition(i).build();
             }
-            return SearchResult.builder().withFound(false).build();
         }
+        return SearchResult.builder().withFound(false).build();
     });
     @Test
     void similarityFinderForEmptyArrays(){
