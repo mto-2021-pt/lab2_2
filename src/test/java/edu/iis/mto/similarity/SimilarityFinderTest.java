@@ -7,6 +7,8 @@ import edu.iis.mto.searcher.SearchResult;
 import edu.iis.mto.searcher.SequenceSearcher;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+
 class SimilarityFinderTest {
 
     private double similarity;
@@ -113,5 +115,47 @@ class SimilarityFinderTest {
         int[] seq2 = new int[] {1, 2, 3};
 
         assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(seq1, seq2));
+    }
+
+    @Test
+    public void calculateJackardSimilarity_behaviorTest_sequenceSearcherCalled0Times() throws NoSuchFieldException, IllegalAccessException {
+        SequenceSearcher sequenceSearcher = new SequenceSearcher() {
+            private int callsCounter = 0;
+
+            @Override public SearchResult search(int elem, int[] sequence) {
+                callsCounter++;
+                return SearchResult.builder().withFound(false).withPosition(-1).build();
+            }
+        };
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        int[] seq1 = new int[] {};
+        int[] seq2 = new int[] {};
+
+        similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        Field field = sequenceSearcher.getClass().getDeclaredField("callsCounter");
+        field.setAccessible(true);
+        int numberOfCalls = field.getInt(sequenceSearcher);
+        assertEquals(0, numberOfCalls);
+    }
+
+    @Test
+    public void calculateJackardSimilarity_behaviorTest_sequenceSearcherCalled4Times() throws NoSuchFieldException, IllegalAccessException {
+        SequenceSearcher sequenceSearcher = new SequenceSearcher() {
+            private int callsCounter = 0;
+
+            @Override public SearchResult search(int elem, int[] sequence) {
+                callsCounter++;
+                return SearchResult.builder().withFound(true).withPosition(elem - 1).build();
+            }
+        };
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        int[] seq1 = new int[] {1, 2, 3, 4};
+        int[] seq2 = new int[] {1, 2, 3, 4, 5};
+
+        similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        Field field = sequenceSearcher.getClass().getDeclaredField("callsCounter");
+        field.setAccessible(true);
+        int numberOfCalls = field.getInt(sequenceSearcher);
+        assertEquals(4, numberOfCalls);
     }
 }
