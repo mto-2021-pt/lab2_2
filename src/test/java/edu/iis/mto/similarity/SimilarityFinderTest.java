@@ -50,10 +50,37 @@ class SimilarityFinderTest {
             }
         });
 
-        int tab[] = {13, 4, 29, 16};
-        int tab2[] = {13, 4, 29, 16};
+        int firstTab[] = {13, 4, 29, 16};
+        int secondTab[] = {13, 4, 29, 16};
 
-        double result = similarityFinder.calculateJackardSimilarity(tab, tab2);
+        double result = similarityFinder.calculateJackardSimilarity(firstTab, secondTab);
         Assertions.assertEquals(1 , result);
+    }
+
+    @Test
+    void testWithCompletelyDifferentSequences() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcher() {
+            @Override
+            public SearchResult search(int elem, int[] sequence) {
+                SearchResult searchResult = null;
+                if (elem == 13) {
+                    searchResult = SearchResult.builder().withPosition(0).withFound(false)
+                            .build();
+                } else if (elem == 17) {
+                    searchResult = SearchResult.builder().withPosition(1).withFound(false)
+                            .build();
+                } else if (elem == 1) {
+                    searchResult = SearchResult.builder().withPosition(2).withFound(false)
+                            .build();
+                }
+                return searchResult;
+            }
+        });
+
+        int firstTab[] = {13, 17, 1};
+        int secondTab[] = {29, 69, 49};
+
+        double result = similarityFinder.calculateJackardSimilarity(firstTab, secondTab);
+        Assertions.assertEquals(0, result);
     }
 }
