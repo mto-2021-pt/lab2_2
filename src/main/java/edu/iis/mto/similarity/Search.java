@@ -7,8 +7,11 @@ public class Search implements SequenceSearcher {
 
     SearchResult sr = SearchResult.builder().withFound(false).withPosition(-1).build();
 
+    private int calls=0;
+
     @Override
     public SearchResult search(int elem, int[] sequence) {
+        calls++;
         for (int i : sequence){
             if ( i == elem ){
                 sr = SearchResult.builder().withFound(true).withPosition(i).build();
@@ -18,4 +21,7 @@ public class Search implements SequenceSearcher {
         return sr;
     }
 
+    public int getCalls() {
+        return calls;
+    }
 }
