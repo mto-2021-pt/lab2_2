@@ -1,6 +1,7 @@
 package edu.iis.mto.similarity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.iis.mto.searcher.SearchResult;
 import edu.iis.mto.searcher.SequenceSearcher;
@@ -82,5 +83,25 @@ class SimilarityFinderTest {
 
         similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertEquals(0.25d, similarity);
+    }
+
+    @Test
+    public void calculateJackardSimilarity_behaviorTest_firstSeqNull() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(
+                (elem, sequence) -> SearchResult.builder().withFound(false).withPosition(-1).build());
+        int[] seq1 = null;
+        int[] seq2 = new int[] {1, 2, 3};
+
+        assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(seq1, seq2));
+    }
+
+    @Test
+    public void calculateJackardSimilarity_behaviorTest_secondSeqNull() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(
+                (elem, sequence) -> SearchResult.builder().withFound(false).withPosition(-1).build());
+        int[] seq1 = new int[] {1, 2, 3};
+        int[] seq2 = null;
+
+        assertThrows(NullPointerException.class, () -> similarityFinder.calculateJackardSimilarity(seq1, seq2));
     }
 }
