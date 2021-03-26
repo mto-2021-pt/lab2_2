@@ -78,6 +78,25 @@ class SimilarityFinderTest {
 
     }
 
+    private int counter=0;
+    SequenceSearcher sequenceSearcherTrueCounter = new SequenceSearcher() {
+        @Override
+        public SearchResult search(int elem, int[] sequence) {
+            SearchResult.Builder builder = SearchResult.builder();
+            builder.withFound(true);
+            counter++;
+            return builder.build();
+        }
+    };
+
+    @Test
+    void test7() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrueCounter);
+
+        double result = similarityFinder.calculateJackardSimilarity(new int[]{1,2,3,4},new int[]{6,7,8,9});
+        assertEquals(4,counter);
+
+    }
 
 
 }
