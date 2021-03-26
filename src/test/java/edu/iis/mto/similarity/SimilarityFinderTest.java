@@ -119,6 +119,7 @@ class SimilarityFinderTest {
 
         int[] firstTab = {13, 21, 65, 12, 99};
         int[] secondTab = {7, 65, 98};
+
         double result = similarityFinder.calculateJackardSimilarity(firstTab, secondTab);
         Assertions.assertEquals(1 / 7.0, result);
     }
