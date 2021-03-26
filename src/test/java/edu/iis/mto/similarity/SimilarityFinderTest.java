@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 class SimilarityFinderTest {
 
-
     SequenceSearcher sequenceSearcherTrue = new SequenceSearcher() {
         @Override
         public SearchResult search(int elem, int[] sequence) {
@@ -68,5 +67,17 @@ class SimilarityFinderTest {
         }
 
     }
+    @Test
+    void test6() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherFalse);
+
+        for(int i=0; i<5; i++){
+            double result = similarityFinder.calculateJackardSimilarity(new int[]{5,3},new int[]{1,2});
+            assertEquals(0,result);
+        }
+
+    }
+
+
 
 }
