@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 class SimilarityFinderTest {
     // State tests
     @Test
@@ -108,6 +110,26 @@ class SimilarityFinderTest {
         sf.calculateJackardSimilarity(seq1, seq2);
 
         assertEquals(4, ss.getNumberOfSearchCalls());
+    }
+
+    @Test
+    void similarityFinderShouldIncludeEveryElementOfTheFirstSequence() {
+        int[] states = {0, 0, 0, 0};
+        int[] seq1 = {7, 2, 1, 5};
+        int[] seq2 = {};
+
+        ArrayList<Integer> expectedElements = new ArrayList<>();
+
+        for(int element : seq1) {
+            expectedElements.add(element);
+        }
+
+        BehaviorTestingSequenceSearcher ss = new BehaviorTestingSequenceSearcher(states);
+        SimilarityFinder sf = new SimilarityFinder(ss);
+
+        sf.calculateJackardSimilarity(seq1, seq2);
+
+        assertEquals(expectedElements, ss.getIncludedElements());
     }
 
 }
