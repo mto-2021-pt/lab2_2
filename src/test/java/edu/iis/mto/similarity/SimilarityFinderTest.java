@@ -95,5 +95,20 @@ class SimilarityFinderTest {
 
         assertEquals(1, ss.getNumberOfSearchCalls());
     }
+
+    @Test
+    void searchMethodShouldBeCalledFourTimesForTheFirstSequenceOfLengthFour() {
+        int[] states = {0, 1, 1, 0};
+        int[] seq1 = {3, 4, 5, 2};
+        int[] seq2 = {4, 5, -3};
+
+        BehaviorTestingSequenceSearcher ss = new BehaviorTestingSequenceSearcher(states);
+        SimilarityFinder sf = new SimilarityFinder(ss);
+
+        sf.calculateJackardSimilarity(seq1, seq2);
+
+        assertEquals(4, ss.getNumberOfSearchCalls());
+    }
+
 }
 
