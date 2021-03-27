@@ -6,8 +6,8 @@ import edu.iis.mto.searcher.SequenceSearcher;
 import java.util.ArrayList;
 
 public class StateTestingSequenceSearcher implements SequenceSearcher {
-    private ArrayList<SearchResult> searchResults = new ArrayList<>();
-    private int resultIndex = 0;
+    protected ArrayList<SearchResult> searchResults = new ArrayList<>();
+    protected int resultIndex = 0;
 
     public StateTestingSequenceSearcher(int[] states) {
         for (int state : states) {
