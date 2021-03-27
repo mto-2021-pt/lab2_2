@@ -5,11 +5,11 @@ import edu.iis.mto.searcher.SequenceSearcher;
 
 import java.util.ArrayList;
 
-public class SequenceSearcherSimulator implements SequenceSearcher {
+public class StateTestingSequenceSearcher implements SequenceSearcher {
     private ArrayList<SearchResult> searchResults = new ArrayList<>();
     private int resultIndex = 0;
 
-    public SequenceSearcherSimulator(int[] states) {
+    public StateTestingSequenceSearcher(int[] states) {
         for (int state : states) {
             searchResults.add(state == 0
                     ? SearchResult.builder().withFound(false).build()
