@@ -59,5 +59,17 @@ class SimilarityFinderTest {
         assertEquals(0.5d, sf.calculateJackardSimilarity(seq1, seq2));
     }
 
+    @Test
+    void similarityFinderShouldReturnOneThirdForSequencesOfDifferentLengthEqualInTwoOutOfSixElements() {
+        int[] states = {0, 1, 1};
+        int[] seq1 = {1, 2, 3};
+        int[] seq2 = {0, 3, 2, 7, 9};
+
+        SequenceSearcherSimulator ss = new SequenceSearcherSimulator(states);
+        SimilarityFinder sf = new SimilarityFinder(ss);
+
+        assertEquals(1.0d / 3, sf.calculateJackardSimilarity(seq1, seq2));
+    }
+
 }
 
