@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 class SimilarityFinderTest {
-
+    // State tests
     @Test
     void similarityFinderShouldReturnOneForTwoEmptySequences() {
         int[] states = {};
@@ -65,6 +65,21 @@ class SimilarityFinderTest {
         SimilarityFinder sf = new SimilarityFinder(ss);
 
         assertEquals(1.0d / 3, sf.calculateJackardSimilarity(seq1, seq2));
+    }
+
+    // Behavior tests
+    @Test
+    void searchMethodShouldBeCalledZeroTimesForEmptySequences() {
+        int[] states = {};
+        int[] seq1 = {};
+        int[] seq2 = {};
+
+        BehaviorTestingSequenceSearcher ss = new BehaviorTestingSequenceSearcher(states);
+        SimilarityFinder sf = new SimilarityFinder(ss);
+
+        sf.calculateJackardSimilarity(seq1, seq2);
+
+        assertEquals(0, ss.getNumberOfSearchCalls());
     }
 
 }
