@@ -23,5 +23,17 @@ class SimilarityFinderTest {
         assertEquals(1.0d, sf.calculateJackardSimilarity(seq1, seq2));
     }
 
+    @Test
+    void similarityFinderShouldReturnOneForTwoEqualSequences() {
+        int[] states = {1, 1, 1, 1};
+        int[] seq1 = {7, 6, 9, 15};
+        int[] seq2 = {7, 6, 9, 15};
+
+        SequenceSearcherSimulator ss = new SequenceSearcherSimulator(states);
+        SimilarityFinder sf = new SimilarityFinder(ss);
+
+        assertEquals(1.0d, sf.calculateJackardSimilarity(seq1, seq2));
+    }
+
 }
 
