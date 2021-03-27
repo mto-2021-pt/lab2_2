@@ -1,7 +1,6 @@
 package edu.iis.mto.similarity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -120,7 +119,7 @@ class SimilarityFinderTest {
 
         ArrayList<Integer> expectedElements = new ArrayList<>();
 
-        for(int element : seq1) {
+        for (int element : seq1) {
             expectedElements.add(element);
         }
 
