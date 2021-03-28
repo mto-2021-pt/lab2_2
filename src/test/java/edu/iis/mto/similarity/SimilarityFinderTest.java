@@ -8,12 +8,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class SimilarityFinderTest {
-
+    private int executionCounter = 0;
     SequenceSearcher sequenceSearcherTrue = (elem, sequence) -> SearchResult.builder().withFound(true).build();
     SequenceSearcher sequenceSearcherFalse = (elem, sequence) -> SearchResult.builder().withFound(false).build();
+    SequenceSearcher sequenceSearcherExecutionCounter = (elem, sequence) -> {
+        executionCounter++;
+        return SearchResult.builder().withFound(true).build();
+    };
 
     @Test
-    void test1() {
+    void differentArrays() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherFalse);
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{5}, new int[]{1});
@@ -22,7 +26,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test2() {
+    void sameArrays() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{2}, new int[]{2});
@@ -31,16 +35,16 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test3() {
+    void sameArraysMultipleTimes() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
-
-        double result = similarityFinder.calculateJackardSimilarity(new int[]{2}, new int[]{2});
-
-        Assertions.assertEquals(1,result);
+        for (int i = 0; i < 10; i++) {
+            double result = similarityFinder.calculateJackardSimilarity(new int[]{2}, new int[]{2});
+            Assertions.assertEquals(1,result);
+        }
     }
 
     @Test
-    void test4() {
+    void twoEmptyArrays() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{}, new int[]{});
@@ -49,7 +53,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test5() {
+    void twoEmptyArraysMultipleTimes() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
         for (int i = 0; i < 10; i++) {
             double result = similarityFinder.calculateJackardSimilarity(new int[]{}, new int[]{});
@@ -59,7 +63,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test6() {
+    void oneEmptyArrayMultipleTimes() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherFalse);
         for (int i = 0; i < 10; i++) {
             double result = similarityFinder.calculateJackardSimilarity(new int[]{}, new int[]{1});
@@ -68,22 +72,18 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test7() {
-        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherFalse);
+    void nonEmptyArraysMultipleTimes() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
         for (int i = 0; i < 10; i++) {
-            double result = similarityFinder.calculateJackardSimilarity(new int[]{}, new int[]{1});
-            Assertions.assertEquals(0,result);
+            double result = similarityFinder.calculateJackardSimilarity(new int[]{1,2}, new int[]{1,3});
+            Assertions.assertEquals(1,result);
         }
     }
 
-    private int executionCounter = 0;
-    SequenceSearcher sequenceSearcherExecutionCounter = (elem, sequence) -> {
-        executionCounter++;
-        return SearchResult.builder().withFound(true).build();
-    };
+
 
     @Test
-    void test8() {
+    void numberOfExecutionsNonEmptyArrays() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherExecutionCounter);
 
         similarityFinder.calculateJackardSimilarity(new int[]{2,5,42,5},new int[]{2,5,42,5});
@@ -91,7 +91,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void test9() {
+    void numberOfExecutionsEmptyArrays() {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherExecutionCounter);
 
         similarityFinder.calculateJackardSimilarity(new int[]{},new int[]{});
