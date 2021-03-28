@@ -21,4 +21,12 @@ class SimilarityFinderTest {
         Assertions.assertEquals(0,result);
     }
 
+    @Test
+    void test2() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherTrue);
+
+        double result = similarityFinder.calculateJackardSimilarity(new int[]{2}, new int[]{2});
+
+        Assertions.assertEquals(0,result);
+    }
 }
