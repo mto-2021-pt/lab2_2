@@ -36,7 +36,7 @@ class SimilarityFinderTest {
 
         double result = similarityFinder.calculateJackardSimilarity(new int[]{2}, new int[]{2});
 
-        Assertions.assertEquals(0,result);
+        Assertions.assertEquals(1,result);
     }
 
     @Test
@@ -67,5 +67,34 @@ class SimilarityFinderTest {
         }
     }
 
+    @Test
+    void test7() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherFalse);
+        for (int i = 0; i < 10; i++) {
+            double result = similarityFinder.calculateJackardSimilarity(new int[]{}, new int[]{1});
+            Assertions.assertEquals(0,result);
+        }
+    }
 
+    private int executionCounter = 0;
+    SequenceSearcher sequenceSearcherExecutionCounter = (elem, sequence) -> {
+        executionCounter++;
+        return SearchResult.builder().withFound(true).build();
+    };
+
+    @Test
+    void test8() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherExecutionCounter);
+
+        similarityFinder.calculateJackardSimilarity(new int[]{2,5,42,5},new int[]{2,5,42,5});
+        Assertions.assertEquals(4, executionCounter);
+    }
+
+    @Test
+    void test9() {
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherExecutionCounter);
+
+        similarityFinder.calculateJackardSimilarity(new int[]{},new int[]{});
+        Assertions.assertEquals(0, executionCounter);
+    }
 }
