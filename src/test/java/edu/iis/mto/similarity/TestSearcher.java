@@ -14,7 +14,7 @@ public class TestSearcher implements SequenceSearcher {
     private List<int[]> searchedSequences;
     private List<SearchResult> searchResults;
 
-    public TestSearcher(List<SearchResult> searchResults) {
+    TestSearcher(List<SearchResult> searchResults) {
         this.searchedValues = new ArrayList<>();
         this.searchedSequences = new ArrayList<>();
         this.searchResults = searchResults;
@@ -29,15 +29,15 @@ public class TestSearcher implements SequenceSearcher {
         return searchResults.get(resultIndex++);
     }
 
-    public int getSearchingAttempts() {
+    int getSearchingAttempts() {
         return searchingAttempts;
     }
 
-    public List<Integer> getSearchedValues() {
+    List<Integer> getSearchedValues() {
         return searchedValues;
     }
 
-    public List<int[]> getSearchedSequences() {
+    List<int[]> getSearchedSequences() {
         return searchedSequences;
     }
 
