@@ -29,6 +29,31 @@ class SimilarityFinderTest {
     }
 
     @Test
+    void EmptySequenceOne() {
+        int[] seqOne = {};
+        int[] seqTwo = {1,2,3};
+
+        List<SearchResult> results = new ArrayList<>();
+        SimilarityFinder finder = new SimilarityFinder(new TestSearcher(results));
+        double result = finder.calculateJackardSimilarity(seqOne, seqTwo);
+        assertEquals(0, result);
+    }
+
+    @Test
+    void EmptySequenceTwo() {
+        int[] seqOne = {1,2,3};
+        int[] seqTwo = {};
+
+        List<SearchResult> results = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            results.add(NOT_FOUND);
+        }
+        SimilarityFinder finder = new SimilarityFinder(new TestSearcher(results));
+        double result = finder.calculateJackardSimilarity(seqOne, seqTwo);
+        assertEquals(0, result);
+    }
+
+    @Test
     void SequencesWithSameLength_NoSimilarValues() {
         int[] seqOne = {2, 4, 6, 8};
         int[] seqTwo = {1, 3, 5, 7};
@@ -136,9 +161,48 @@ class SimilarityFinderTest {
 
         List<Integer> searched = new ArrayList<>();
         List<int[]> seq = new ArrayList<>();
-        assertEquals(0, searcher.getSearchingAttempts());
+        assertEquals(seqOne.length, searcher.getSearchingAttempts());
         assertEquals(searched, searcher.getSearchedValues());
         assertEquals(seq, searcher.getSearchedSequences());
+    }
+
+    @Test
+    void EmptySequenceOne_BehaviorTest() {
+        int[] seqOne = {};
+        int[] seqTwo = {1,2,3};
+
+        List<SearchResult> results = new ArrayList<>();
+        TestSearcher searcher = new TestSearcher(results);
+        SimilarityFinder finder = new SimilarityFinder(searcher);
+        double result = finder.calculateJackardSimilarity(seqOne, seqTwo);
+        assertEquals(0, result);
+
+        List<Integer> searched = new ArrayList<>();
+        List<int[]> seq = new ArrayList<>();
+        assertEquals(seqOne.length, searcher.getSearchingAttempts());
+        assertEquals(searched, searcher.getSearchedValues());
+        assertEquals(seq, searcher.getSearchedSequences());
+    }
+
+    @Test
+    void EmptySequenceTwo_BehaviorTest() {
+        int[] seqOne = {1,2,3};
+        int[] seqTwo = {};
+
+        List<SearchResult> results = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            results.add(NOT_FOUND);
+        }
+        TestSearcher searcher = new TestSearcher(results);
+        SimilarityFinder finder = new SimilarityFinder(searcher);
+        double result = finder.calculateJackardSimilarity(seqOne, seqTwo);
+        assertEquals(0, result);
+
+        assertEquals(seqOne.length, searcher.getSearchingAttempts());
+        assertEquals(searcher.getSearchedValues(), Arrays.asList(1,2,3));
+        for(int[] seq : searcher.getSearchedSequences()) {
+            assertEquals(seq, seqTwo);
+        }
     }
 
     @Test
