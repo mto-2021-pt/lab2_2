@@ -31,4 +31,18 @@ class SimilarityFinderTest {
         assertEquals(similarityFinder.calculateJackardSimilarity(array1, array2), 1);
     }
 
+    @Test
+    void returnZeroFirstSequenceEmptyTest(){
+        int[] array1 = {}, array2 = {1, 2, 3, 4, 5};
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        assertEquals(similarityFinder.calculateJackardSimilarity(array1, array2), 0);
+    }
+
+    @Test
+    void returnZeroSecondSequenceEmptyTest(){
+        int[] array1 = {1, 2, 3, 4, 5}, array2 = {};
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        assertEquals(similarityFinder.calculateJackardSimilarity(array1, array2), 0);
+    }
+
 }
