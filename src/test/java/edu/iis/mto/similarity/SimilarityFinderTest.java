@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 class SimilarityFinderTest {
 
-    public SearchResult searchResult;
     public int counter;
 
     SequenceSearcher sequenceSearcher = new SequenceSearcher() {
